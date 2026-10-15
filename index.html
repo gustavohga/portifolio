@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gustavo Aguiar — Desenvolvedor Back-End</title>
+<meta name="description" content="Gustavo Henrique Gonçalves Aguiar — Desenvolvedor Back-End em formação. Java, Python, JavaScript, APIs REST, PostgreSQL e projetos full stack.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1210; --panel:#101a16; --panel-2:#0e1714;
+    --line:#223129; --line-soft:#1a2620;
+    --text:#e9efe9; --text-muted:#8ea393; --text-dim:#5d7267;
+    --amber:#d9a441; --signal:#7fe0a8;
+    --max:720px; --wide:980px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+  }
+  body{
+    margin:0; background:var(--bg);
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% -10%, #14251c88, transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, #1a1f1444, transparent 55%);
+    color:var(--text); font-family:'Inter',-apple-system,sans-serif;
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:'Space Grotesk','Inter',sans-serif; font-weight:600; letter-spacing:-.01em; margin:0; color:var(--text); }
+  .mono{ font-family:'IBM Plex Mono','SF Mono',monospace; }
+  a{ color:inherit; text-decoration:none; }
+  :focus-visible{ outline:2px solid var(--amber); outline-offset:3px; border-radius:2px; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width:var(--wide); margin:0 auto; padding:0 28px; }
+
+  /* AVISO IA (topo) */
+  .ai-bar{ background:var(--panel); border-bottom:1px solid var(--line-soft); overflow:hidden; }
+  .ai-track{ display:flex; width:max-content; animation:ai-scroll 60s linear infinite; }
+  .ai-bar:hover .ai-track{ animation-play-state:paused; }
+  .ai-group{ display:flex; flex-shrink:0; }
+  .ai-group div{ padding:5px 0; margin-right:44px; font-family:'IBM Plex Mono',monospace; font-size:11px; line-height:1.5; color:var(--text-muted); white-space:nowrap; }
+  .ai-group span{ color:var(--amber); }
+  @keyframes ai-scroll{ to{ transform:translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce){
+    .ai-track{ animation:none; width:auto; flex-wrap:wrap; padding:0 28px; max-width:var(--wide); margin:0 auto; }
+    .ai-group[aria-hidden="true"]{ display:none; }
+    .ai-group{ flex-wrap:wrap; }
+    .ai-group div:nth-child(n+3){ display:none; }
+  }
+
+  /* NAV */
+  header{ position:sticky; top:0; z-index:50; background:#0b1210cc; backdrop-filter:blur(10px); border-bottom:1px solid var(--line-soft); }
+  nav{ max-width:var(--wide); margin:0 auto; padding:18px 28px; display:flex; align-items:center; justify-content:space-between; }
+  .logo{ font-family:'IBM Plex Mono',monospace; font-size:15px; }
+  .logo span{ color:var(--amber); }
+  .nav-links{ display:flex; gap:28px; list-style:none; margin:0; padding:0; font-size:14.5px; }
+  .nav-links a{ color:var(--text-muted); position:relative; padding-bottom:3px; transition:color .2s; }
+  .nav-links a::after{ content:''; position:absolute; left:0; bottom:-1px; width:0; height:1px; background:var(--amber); transition:width .25s; }
+  .nav-links a:hover{ color:var(--text); }
+  .nav-links a:hover::after{ width:100%; }
+  .nav-icons{ display:flex; gap:16px; align-items:center; }
+  .nav-icons a{ color:var(--text-dim); transition:color .2s; }
+  .nav-icons a:hover{ color:var(--amber); }
+  .nav-icons svg{ width:18px; height:18px; }
+  .nav-toggle{ display:none; background:none; border:1px solid var(--line); border-radius:6px; padding:7px 9px; color:var(--text); cursor:pointer; }
+
+  /* HERO */
+  .hero{ padding:90px 0 70px; }
+  .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:13.5px; color:var(--signal); display:flex; align-items:center; gap:9px; margin:0 0 22px; opacity:0; animation:rise .6s ease forwards; }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--signal); box-shadow:0 0 8px 1px #7fe0a888; }
+  .hero h1{ font-family:'IBM Plex Mono','SF Mono',monospace; font-weight:600; font-size:clamp(30px,5.6vw,56px); line-height:1.15; letter-spacing:-.02em; max-width:860px; opacity:0; animation:rise .65s ease forwards .08s; }
+  .hero h1 .kw{ color:var(--text-dim); font-weight:500; }
+  .hero h1 .semi{ color:var(--amber); }
+  .hero h1 .caret{ display:inline-block; width:.5em; height:.95em; margin-left:.12em; background:var(--amber); vertical-align:-.08em; animation:blink 1.1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .hero-sub{ margin:22px 0 0; max-width:580px; font-size:17px; color:var(--text-muted); opacity:0; animation:rise .65s ease forwards .18s; }
+  .hero-meta{ margin-top:30px; display:flex; flex-wrap:wrap; gap:12px; opacity:0; animation:rise .65s ease forwards .26s; }
+  .pill{ font-size:13.5px; color:var(--text-muted); border:1px solid var(--line); padding:7px 13px; border-radius:100px; display:inline-flex; align-items:center; gap:7px; }
+  .pill.status{ color:var(--signal); border-color:#7fe0a833; }
+  .pill.status .dot{ width:6px; height:6px; border-radius:50%; background:var(--signal); }
+  .hero-cta{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; opacity:0; animation:rise .65s ease forwards .34s; }
+  .btn{ font-size:14.5px; font-weight:500; padding:12px 22px; border-radius:8px; display:inline-flex; align-items:center; gap:8px; transition:all .2s; border:1px solid transparent; }
+  .btn-primary{ background:var(--amber); color:#1a1206; }
+  .btn-primary:hover{ background:#e8b45a; transform:translateY(-1px); }
+  .btn-ghost{ border-color:var(--line); color:var(--text); }
+  .btn-ghost:hover{ border-color:var(--amber); color:var(--amber); }
+  @keyframes rise{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+
+  /* SECTIONS */
+  section{ padding:78px 0; border-top:1px solid var(--line-soft); }
+  .sec-label{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--amber); margin:0 0 14px; }
+  .sec-title{ font-size:clamp(24px,3.4vw,32px); margin-bottom:40px; max-width:560px; }
+
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:46px; padding-top:34px; border-top:1px solid var(--line-soft); }
+  .stat-num{ font-family:'Space Grotesk',sans-serif; font-size:clamp(26px,3.4vw,36px); font-weight:600; }
+  .stat-label{ font-size:13.5px; color:var(--text-dim); margin-top:6px; }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns:200px 1fr; gap:52px; align-items:start; }
+  .about-photo{ display:flex; flex-direction:column; gap:16px; }
+  .about-photo img{ width:100%; border-radius:10px; border:1px solid var(--line); filter:grayscale(35%); }
+  .about-contact{ display:flex; flex-direction:column; gap:9px; font-size:13.5px; color:var(--text-muted); }
+  .about-contact a,.about-contact span{ display:flex; align-items:center; gap:8px; transition:color .2s; }
+  .about-contact a:hover{ color:var(--amber); }
+  .about-contact svg{ width:15px; height:15px; flex-shrink:0; color:var(--text-dim); }
+  .about-text p{ color:var(--text-muted); max-width:560px; margin:0 0 16px; }
+  .edu-block{ margin-top:34px; display:grid; gap:18px; }
+  .edu-item{ display:grid; grid-template-columns:130px 1fr; gap:18px; font-size:14.5px; }
+  .edu-status{ color:var(--text-dim); font-family:'IBM Plex Mono',monospace; font-size:12.5px; }
+  .edu-name{ color:var(--text); font-weight:500; }
+  .edu-school{ color:var(--text-muted); font-size:13.5px; margin-top:2px; }
+  .lang-row{ margin-top:30px; display:flex; gap:22px; flex-wrap:wrap; font-size:13.5px; color:var(--text-muted); }
+  .lang-row b{ color:var(--text); font-weight:500; }
+
+  /* EXPERIENCE */
+  .job{ display:grid; grid-template-columns:150px 1fr; gap:32px; }
+  .job-when{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--text-dim); padding-top:3px; }
+  .job-body{ border-left:1px solid var(--line); padding-left:28px; position:relative; }
+  .job-body::before{ content:''; position:absolute; left:-5px; top:6px; width:9px; height:9px; border-radius:50%; background:var(--bg); border:2px solid var(--amber); }
+  .job-role{ font-size:18px; font-weight:600; font-family:'Space Grotesk',sans-serif; }
+  .job-org{ color:var(--amber); font-size:14.5px; margin-top:4px; }
+  .job-loc{ color:var(--text-dim); font-size:13px; margin-top:2px; }
+  .job ul{ margin:18px 0 0; padding:0; list-style:none; display:grid; gap:10px; }
+  .job li{ color:var(--text-muted); font-size:14.5px; padding-left:18px; position:relative; }
+  .job li::before{ content:'›'; position:absolute; left:0; color:var(--amber); }
+  .courses{ margin-top:44px; padding-top:32px; border-top:1px solid var(--line-soft); display:grid; gap:14px; }
+  .course-title{ color:var(--text); font-weight:500; font-size:14.5px; }
+  .course-title span{ color:var(--text-dim); font-weight:400; font-family:'IBM Plex Mono',monospace; font-size:12.5px; }
+
+  /* SKILLS */
+  .skill-note{ color:var(--text-muted); max-width:560px; margin:0 0 42px; font-size:15px; }
+  .skill-groups{ display:grid; gap:0; }
+  .skill-group{ display:grid; grid-template-columns:190px 1fr; gap:20px; align-items:baseline; padding:20px 0; border-top:1px solid var(--line-soft); }
+  .skill-group:first-child{ border-top:none; padding-top:0; }
+  .skill-group-name{ font-size:13px; color:var(--text-dim); }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:9px; }
+  .tag{ font-family:'IBM Plex Mono',monospace; font-size:13px; padding:6px 12px; border:1px solid var(--line); border-radius:6px; color:var(--text); transition:all .2s; }
+  .tag:hover{ border-color:var(--amber); color:var(--amber); }
+  .tag.learning{ color:var(--text-dim); border-style:dashed; }
+
+  /* PROJECTS */
+  .project-card{ border:1px solid var(--line); border-radius:14px; padding:40px; background:linear-gradient(155deg,var(--panel),var(--panel-2)); transition:border-color .3s; }
+  .project-card:hover{ border-color:#d9a44155; }
+  .project-tags{ display:flex; gap:8px; flex-wrap:wrap; }
+  .project-tags span{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--signal); border:1px solid #7fe0a833; padding:4px 10px; border-radius:100px; }
+  .project-card h3{ font-size:26px; margin-top:14px; }
+  .project-when{ font-size:12.5px; color:var(--text-dim); margin:6px 0 0; }
+  .project-card > p.desc{ color:var(--text-muted); max-width:620px; margin:18px 0 30px; font-size:15px; }
+  .stack-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding:24px 0; border-top:1px solid var(--line-soft); border-bottom:1px solid var(--line-soft); margin-bottom:26px; }
+  .stack-col-label{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-dim); margin-bottom:8px; }
+  .stack-col div{ font-size:14px; color:var(--text-muted); line-height:1.9; }
+  .project-links a{ display:inline-flex; align-items:center; gap:8px; font-size:14.5px; font-weight:500; transition:color .2s; }
+  .project-links a:hover{ color:var(--amber); }
+  .project-links svg{ width:16px; height:16px; }
+  .project-mini{ margin-top:22px; padding:28px 40px; border:1px solid var(--line-soft); border-radius:14px; }
+  .project-mini h3{ font-size:20px; margin-top:12px; }
+  .project-mini p.desc{ color:var(--text-muted); font-size:14.5px; max-width:620px; margin:12px 0 0; }
+  .more-repos{ margin-top:22px; font-size:14px; color:var(--text-dim); }
+  .more-repos a{ color:var(--text-muted); border-bottom:1px solid var(--line); transition:all .2s; }
+  .more-repos a:hover{ color:var(--amber); border-color:var(--amber); }
+
+  /* CONTACT */
+  .contact-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:50px; }
+  .contact-list{ display:grid; }
+  .contact-row{ display:flex; align-items:center; gap:14px; padding:16px 0; border-top:1px solid var(--line-soft); font-size:15px; transition:color .2s; }
+  .contact-row:last-child{ border-bottom:1px solid var(--line-soft); }
+  a.contact-row:hover{ color:var(--amber); }
+  a.contact-row:hover svg{ color:var(--amber); }
+  .contact-row svg{ width:17px; height:17px; color:var(--text-dim); transition:color .2s; flex-shrink:0; }
+  .contact-row .k{ color:var(--text-dim); font-size:12px; width:76px; flex-shrink:0; }
+
+  footer{ border-top:1px solid var(--line-soft); padding:30px 0 50px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--text-dim); }
+  .ai-note{ margin-top:10px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.7; color:var(--text-muted); }
+  .ai-note span{ color:var(--amber); }
+  footer a{ transition:color .2s; }
+  footer a:hover{ color:var(--amber); }
+
+  @media (max-width:860px){
+    .about-grid{ grid-template-columns:1fr; }
+    .about-photo{ flex-direction:row; align-items:center; }
+    .about-photo img{ width:92px; }
+    .stack-grid{ grid-template-columns:1fr; gap:16px; }
+    .contact-grid{ grid-template-columns:1fr; gap:30px; }
+  }
+  @media (max-width:700px){
+    .nav-links,.nav-icons{ display:none; }
+    .nav-toggle{ display:block; }
+    header.open .nav-links{ display:flex; flex-direction:column; gap:0; position:absolute; top:100%; left:0; right:0; background:var(--panel); border-bottom:1px solid var(--line); padding:8px 28px 18px; }
+    header.open .nav-links a{ padding:12px 0; border-bottom:1px solid var(--line-soft); width:100%; display:block; }
+    .job{ grid-template-columns:1fr; gap:10px; }
+    .job-body{ padding-left:22px; }
+    .skill-group{ grid-template-columns:1fr; gap:10px; }
+    .edu-item{ grid-template-columns:1fr; gap:4px; }
+    .project-card{ padding:26px 22px; }
+    .project-mini{ padding:22px; }
+    .stats{ grid-template-columns:1fr; gap:20px; }
+    section{ padding:56px 0; }
+    .hero{ padding:56px 0 46px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ai-bar" role="note" aria-label="Este site foi feito com ajuda de IA. This website was made with AI help.">
+  <div class="ai-track">
+    <div class="ai-group"><div><span>//</span> Este site foi feito com ajuda de IA.</div><div><span>//</span> This website was made with AI help.</div><div><span>//</span> Este site foi feito com ajuda de IA.</div><div><span>//</span> This website was made with AI help.</div><div><span>//</span> Este site foi feito com ajuda de IA.</div><div><span>//</span> This website was made with AI help.</div><div><span>//</span> Este site foi feito com ajuda de IA.</div><div><span>//</span> This website was made with AI help.</div><div><span>//</span> Este site foi feito com ajuda de IA.</div><div><span>//</span> This website was made with AI help.</div></div>
+    <div class="ai-group" aria-hidden="true"><div><span>//</span> Este site foi feito com ajuda de IA.</div><div><span>//</span> This website was made with AI help.</div><div><span>//</span> Este site foi feito com ajuda de IA.</div><div><span>//</span> This website was made with AI help.</div><div><span>//</span> Este site foi feito com ajuda de IA.</div><div><span>//</span> This website was made with AI help.</div><div><span>//</span> Este site foi feito com IA help.</div><div><span>//</span> This website was made with AI help.</div><div><span>//</span> Este site foi feito com ajuda de IA.</div><div><span>//</span> This website was made with AI help.</div></div>
+  </div>
+</div>
+
+<header id="site-header">
+  <nav>
+    <a href="#top" class="logo">~/<span>gustavo</span></a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#competencias">Competências</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a href="https://github.com/gustavohga" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/gustavohga" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 11v5M8 8v.01M12 16v-3a2 2 0 0 1 4 0v3M12 13v3"/></svg>
+      </a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <section class="hero" style="border-top:none;">
+      <p class="eyebrow"><span class="dot"></span>// desenvolvedor back-end</p>
+      <h1><span class="kw">const dev =</span> Gustavo Aguiar<span class="semi">;</span><span class="caret" aria-hidden="true"></span></h1>
+      <p class="hero-sub">Desenvolvedor back-end em formação, com experiência no apoio ao desenvolvimento e manutenção de sistemas e projetos pessoais em Java, Python e JavaScript. Busco uma vaga de Desenvolvedor ou Analista Júnior.</p>
+      <div class="hero-meta">
+        <span class="pill">Mogi Guaçu, SP</span>
+        <span class="pill status"><span class="dot"></span>Buscando vaga de Desenvolvedor/Analista Júnior</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#projetos" class="btn btn-primary">Ver projetos</a>
+        <a href="#contato" class="btn btn-ghost">Entrar em contato</a>
+      </div>
+      <div class="stats">
+        <div><div class="stat-num">1+ ano</div><div class="stat-label">apoiando desenvolvimento e manutenção de sistemas</div></div>
+        <div><div class="stat-num">2</div><div class="stat-label">projetos full stack com React, NestJS e Docker</div></div>
+        <div><div class="stat-num">350h</div><div class="stat-label">em cursos complementares, entre concluídos e em andamento</div></div>
+      </div>
+    </section>
+
+    <section id="sobre">
+      <p class="sec-label">sobre</p>
+      <div class="about-grid">
+        <div class="about-photo">
+          <img src="https://github.com/gustavohga.png" alt="Foto de Gustavo Henrique Gonçalves Aguiar" loading="lazy">
+          <div class="about-contact">
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              Mogi Guaçu, SP
+            </span>
+            <a href="https://github.com/gustavohga" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+              github.com/gustavohga
+            </a>
+            <a href="https://www.linkedin.com/in/gustavohga" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 11v5M8 8v.01M12 16v-3a2 2 0 0 1 4 0v3M12 13v3"/></svg>
+              linkedin.com/in/gustavohga
+            </a>
+          </div>
+        </div>
+        <div class="about-text">
+          <p>Sou desenvolvedor back-end em formação, com experiência profissional no apoio ao desenvolvimento e à manutenção de sistemas — implementando funcionalidades, testando, documentando e corrigindo bugs — e participação em projetos pessoais com Java, Python e JavaScript.</p>
+          <p>Minha base vem da eletrônica: sou Técnico em Eletrônica e hoje curso Análise e Desenvolvimento de Sistemas. Procuro uma oportunidade como Desenvolvedor ou Analista Júnior, onde eu possa contribuir com a equipe e evoluir profissionalmente.</p>
+          <div class="edu-block">
+            <div class="edu-item">
+              <span class="edu-status">cursando</span>
+              <div><div class="edu-name">Análise e Desenvolvimento de Sistemas</div><div class="edu-school">Fatec Arthur de Azevedo</div></div>
+            </div>
+            <div class="edu-item">
+              <span class="edu-status">concluído</span>
+              <div><div class="edu-name">Técnico em Eletrônica</div><div class="edu-school">ETEC Euro Albino de Souza</div></div>
+            </div>
+          </div>
+          <div class="lang-row">
+            <div><b>Inglês</b> — B1</div>
+            <div><b>Japonês</b> — A1</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experiencia">
+      <p class="sec-label">experiência</p>
+      <h2 class="sec-title">Onde já apliquei o que sei na prática.</h2>
+      <div class="job">
+        <div class="job-when">jul 2024<br>— ago 2025</div>
+        <div class="job-body">
+          <div class="job-role">Programador Auxiliar</div>
+          <div class="job-org">Resultados 360 LTDA</div>
+          <ul>
+            <li>Apoiou o desenvolvimento, manutenção e atualização de sistemas e aplicações.</li>
+            <li>Ajudou a implementar funcionalidades com Python, JavaScript e ferramentas no-code.</li>
+            <li>Realizou testes funcionais e apoiou a identificação e correção de bugs.</li>
+            <li>Organizou a documentação de sistemas, rotinas e processos.</li>
+            <li>Deu suporte ao controle de versões e atendeu chamados técnicos de baixa complexidade.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="courses">
+        <p class="sec-label" style="margin-bottom:4px;">cursos complementares</p>
+        <div class="course-title">Cybersecurity <span>· FIAP · 120h</span></div>
+        <div class="course-title">Python <span>· FIAP · 80h</span></div>
+        <div class="course-title">Java <span>· FIAP · 60h</span></div>
+        <div class="course-title">Desenvolvimento Web <span>· Udemy · 90h · em andamento</span></div>
+      </div>
+    </section>
+
+    <section id="competencias">
+      <p class="sec-label">competências</p>
+      <h2 class="sec-title">Back-end como foco, com React no repertório.</h2>
+      <p class="skill-note">Meu foco é a lógica, os dados e as APIs por trás do produto. Também já construí interfaces em React nos meus projetos full stack, então consigo atuar nos dois lados.</p>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <div class="skill-group-name mono">linguagens</div>
+          <div class="tag-row"><span class="tag">Java</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">C</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name mono">frameworks</div>
+          <div class="tag-row"><span class="tag">Spring Boot</span><span class="tag">Spring Data JPA</span><span class="tag">Hibernate</span><span class="tag">Flask</span><span class="tag">NestJS</span><span class="tag">React</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name mono">bibliotecas python</div>
+          <div class="tag-row"><span class="tag">FastAPI</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">OpenAI</span><span class="tag">PyAutoGUI</span><span class="tag">Tkinter</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name mono">web &amp; dados</div>
+          <div class="tag-row"><span class="tag">APIs REST</span><span class="tag">JSON</span><span class="tag">PostgreSQL</span><span class="tag">SQL Server</span><span class="tag learning">Desenvolvimento Web · em estudo</span></div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name mono">ferramentas</div>
+          <div class="tag-row"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Docker</span><span class="tag">Postman</span><span class="tag">IntelliJ IDEA</span><span class="tag">VS Code</span><span class="tag">CLion</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projetos">
+      <p class="sec-label">projetos e voluntariado</p>
+      <h2 class="sec-title">Do hardware à interface.</h2>
+
+      <div class="project-card">
+        <div class="project-tags"><span>Full stack</span><span>IoT</span><span>TCC</span></div>
+        <h3>DOMESTIX</h3>
+        <p class="project-when mono">ETEC Euro Albino de Souza · jan 2023 — jan 2024</p>
+        <p class="desc">Aplicativo integrado a hardware eletrônico, desenvolvido como Trabalho de Conclusão de Curso com React e NestJS. Monitora e configura um controlador automático de chuveiro conectado à rede local: cadastro de dispositivos, tempo de funcionamento, alertas próximos ao desligamento e estatísticas mensais de duração, temperatura e consumo, tudo integrado a um controlador físico baseado em ESP32.</p>
+        <div class="stack-grid">
+          <div class="stack-col"><div class="stack-col-label mono">frontend</div><div>React</div><div>TypeScript</div></div>
+          <div class="stack-col"><div class="stack-col-label mono">backend</div><div>NestJS</div><div>TypeScript</div><div>MongoDB</div><div>Docker</div></div>
+          <div class="stack-col"><div class="stack-col-label mono">hardware</div><div>ESP32</div><div>Comunicação HTTP / Wi-Fi</div></div>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/gustavohga/DOMESTIX" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+            Ver repositório
+          </a>
+        </div>
+      </div>
+
+      <div class="project-mini">
+        <div class="project-tags"><span>Full stack</span><span>Voluntário</span></div>
+        <h3>Aplicativo Full Stack</h3>
+        <p class="project-when mono">projeto voluntário · 2024</p>
+        <p class="desc">Desenvolvimento colaborativo de uma aplicação full stack com React e TypeScript no front-end e Node.js com NestJS no back-end. Integração entre front-end, back-end, banco de dados e Docker, com atuação em equipe e organização das etapas de desenvolvimento.</p>
+      </div>
+
+      <p class="more-repos">Mais repositórios em <a href="https://github.com/gustavohga" target="_blank" rel="noopener">github.com/gustavohga</a>.</p>
+    </section>
+
+    <section id="contato">
+      <p class="sec-label">contato</p>
+      <div class="contact-grid">
+        <div>
+          <h2 class="sec-title" style="margin-bottom:18px;">Aberto a oportunidades como Desenvolvedor ou Analista Júnior.</h2>
+          <p style="color:var(--text-muted); max-width:480px; margin:0;">Se você tem uma vaga, um desafio técnico ou quer trocar uma ideia sobre código, é só chamar por qualquer um dos canais ao lado.</p>
+        </div>
+        <div class="contact-list">
+          <a class="contact-row" href="mailto:gustavohga949@gmail.com">
+            <span class="k mono">email</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+            gustavohga949@gmail.com
+          </a>
+          <a class="contact-row" href="tel:+5519997162568">
+            <span class="k mono">tel</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2Z"/></svg>
+            (19) 99716-2568
+          </a>
+          <a class="contact-row" href="https://www.linkedin.com/in/gustavohga" target="_blank" rel="noopener">
+            <span class="k mono">linkedin</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 11v5M8 8v.01M12 16v-3a2 2 0 0 1 4 0v3M12 13v3"/></svg>
+            linkedin.com/in/gustavohga
+          </a>
+          <a class="contact-row" href="https://github.com/gustavohga" target="_blank" rel="noopener">
+            <span class="k mono">github</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+            github.com/gustavohga
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        <div>© 2026 Gustavo Henrique Gonçalves Aguiar</div>
+      </div>
+      <a href="#top">voltar ao topo</a>
+    </footer>
+  </div>
+</main>
+
+<script>
+  const header = document.getElementById('site-header');
+  document.getElementById('navToggle').addEventListener('click', () => header.classList.toggle('open'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => header.classList.remove('open')));
+</script>
+</body>
+</html>
